@@ -1,6 +1,6 @@
-# StreamBridge website: strem.voxocast.com
+# StreamBridge website: stream.voxocast.com
 # Put the contents of the "site" folder in /srv/strem (or change "root" below).
-strem.voxocast.com {
+stream.voxocast.com {
 	root * /srv/strem
 	encode zstd gzip
 	file_server

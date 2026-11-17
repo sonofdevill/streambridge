@@ -2,7 +2,7 @@
 
 Stream your PS5 to OBS, Streamlabs, Kick, YouTube or any RTMP server, without a capture card and without Remote Play.
 
-Website and downloads: **https://strem.voxocast.com**
+Website and downloads: **https://stream.voxocast.com**
 
 ## How it works
 
@@ -48,7 +48,7 @@ Flags: `-web-port` (8090), `-remote-port` (8190), `-dns-port` (53), `-rtmp-port`
 | `web/` | Control panel UI, embedded in the binary |
 | `assets/` | Tray icons |
 | `winres/`, `rsrc_windows_amd64.syso` | Windows icon, version info and manifest (regenerate with `goversioninfo -64 -o rsrc_windows_amd64.syso winres/versioninfo.json`) |
-| `site/` | The strem.voxocast.com website (static). Release files go in `site/downloads/` and aren't tracked in git |
+| `site/` | The stream.voxocast.com website (static). Release files go in `site/downloads/` and aren't tracked in git |
 | `deploy/` | Caddy config and deploy notes for the website |
 
 ## Releases
@@ -61,7 +61,7 @@ Release packages (Windows, macOS, Linux and source) are attached to [GitHub Rele
 
 StreamBridge پخش توییچِ PS5 رو با یه DNS محلی به کامپیوتر خودت می‌کشونه. از اونجا با یه کلیک به OBS یا Streamlabs اضافه‌ش می‌کنی، یا بدون انکود دوباره مستقیم به Kick، YouTube یا هر سرور RTMP دیگه می‌فرستیش. نه کپچر کارت لازمه نه Remote Play، و تأخیرش کمتر از ۲ ثانیه‌ست.
 
-دانلود و راهنما: https://strem.voxocast.com
+دانلود و راهنما: https://stream.voxocast.com
 
 ساختن از سورس: `./build.sh` (با Go نسخهٔ ۱.۲۴ به بعد)
 

@@ -13,7 +13,7 @@
     "OriginalFilename": "StreamBridge.exe",
     "ProductName": "StreamBridge",
     "ProductVersion": "1.3.0",
-    "Comments": "https://strem.voxocast.com"
+    "Comments": "https://stream.voxocast.com"
   },
   "VarFileInfo": {"Translation": {"LangID": "0409", "CharsetID": "04B0"}},
   "IconPath": "winres/app.ico",
