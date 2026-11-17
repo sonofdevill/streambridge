@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>StreamBridge: stream your PS5 to OBS, Kick and YouTube without a capture card</title>
+<meta name="description" content="Free app that catches your PS5's Twitch broadcast on your computer and sends it to OBS, Streamlabs, Kick, YouTube or any RTMP server. No capture card, under 2 seconds of delay.">
+<link rel="canonical" href="https://strem.voxocast.com/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://strem.voxocast.com/">
+<meta property="og:title" content="StreamBridge: stream your PS5 without a capture card">
+<meta property="og:description" content="Send your PS5 broadcast to OBS, Streamlabs, Kick or YouTube. Free, for Windows, macOS and Linux.">
+<meta property="og:image" content="https://strem.voxocast.com/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0F1522">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/icon.png" type="image/png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/ibm-plex-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-sans-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css">
+<script>/* pick language + OS before first paint */
+(function(){var h=document.documentElement,l="en";try{var q=new URLSearchParams(location.search).get("lang");l=q||localStorage.getItem("sb-lang")||((navigator.language||"").toLowerCase().indexOf("fa")===0?"fa":"en")}catch(e){}if(l==="fa"){h.lang="fa";h.dir="rtl";h.classList.add("pending")}try{if(!matchMedia("(prefers-reduced-motion: reduce)").matches)h.classList.add("anim")}catch(e){}var u=navigator.userAgent||"";if(/Android|iPhone|iPad|iPod/i.test(u)||(/Macintosh/.test(u)&&navigator.maxTouchPoints>1))h.classList.add("is-mobile")})();
+</script>
+</head>
+<body>
+<a class="skip" href="#main" data-i18n="skip">Skip to content</a>
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="/assets/icon.png" alt="" width="30" height="30">StreamBridge</a>
+    <nav class="links" aria-label="Sections">
+      <a href="#how" data-i18n="nav_how">How it works</a>
+      <a href="#download" data-i18n="nav_dl">Download</a>
+      <a href="#windows" data-i18n="nav_win">Windows warning</a>
+      <a href="#faq" data-i18n="nav_faq">Questions</a>
+    </nav>
+    <div class="seg" role="group" aria-label="Language">
+      <button type="button" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-lang="fa" class="fa" aria-pressed="false">فا</button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <!-- ======================= HERO ======================= -->
+  <section class="hero">
+    <div class="wrap">
+      <h1 data-i18n="h1">Stream your PS5 to OBS, Kick and YouTube without a capture card.</h1>
+      <p class="lede" data-i18n="lede">Your PS5 thinks it's going live on Twitch. StreamBridge catches that broadcast on your computer, at the quality the PS5 sends it, and passes it on to wherever you stream. The delay is under two seconds.</p>
+      <div class="actions">
+        <a class="btn primary" id="hero-dl" href="#download">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 20h14"/></svg>
+          <span id="hero-dl-label" data-i18n="dl_generic">Download StreamBridge</span>
+        </a>
+        <a class="btn" href="#how" data-i18n="see_how">See how it works</a>
+      </div>
+      <p class="meta" data-i18n="hero_meta">Free. Version 1.3 for Windows, macOS and Linux.</p>
+
+      <div class="chain" id="chain" role="img" aria-label="PS5 sends its broadcast to your computer, which passes it to OBS, Kick and YouTube" data-i18n-aria="chain_aria">
+        <div class="node src"><span class="tally"></span><b>PS5</b><small data-i18n="c_src">Going live on “Twitch”</small></div>
+        <div class="wire w1"><span class="hint" data-i18n="c_dns">via DNS</span><i class="pulse"></i></div>
+        <div class="node hub"><span class="tally"></span><b data-i18n="c_hub">Your computer</b><small data-i18n="c_hub_s">StreamBridge receives the broadcast</small>
+          <div class="stats"><code>1920×1080</code><code>60 fps</code><code>6 Mbps</code></div>
+        </div>
+        <div class="wire w2"><i class="pulse"></i></div>
+        <div class="outs">
+          <div class="node"><span class="tally"></span><b>OBS / Streamlabs</b><small class="st"><span class="off" data-i18n="c_wait">Standby</span><span class="on" data-i18n="c_air">On air</span></small></div>
+          <div class="node"><span class="tally"></span><b>Kick</b><small class="st"><span class="off" data-i18n="c_wait">Standby</span><span class="on" data-i18n="c_air">On air</span></small></div>
+          <div class="node"><span class="tally"></span><b>YouTube</b><small class="st"><span class="off" data-i18n="c_wait">Standby</span><span class="on" data-i18n="c_air">On air</span></small></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= HOW ======================= -->
+  <section class="band" id="how">
+    <div class="wrap">
+      <h2 data-i18n="how_h">Three steps, about five minutes</h2>
+      <p class="intro" data-i18n="how_p">You only do this once. After that, open StreamBridge and press Go Live on the PS5 like you always would.</p>
+      <ol class="steps">
+        <li>
+          <span class="n" data-i18n="s1_n">On your computer</span>
+          <h3 data-i18n="s1_h">Open StreamBridge</h3>
+          <p data-i18n="s1_p">It shows one address. That's the only thing you need to copy.</p>
+          <div class="screen" aria-hidden="true">
+            <div class="row"><span class="k" data-i18n="s1_k">PS5 DNS (Primary)</span></div>
+            <div class="row"><span class="v big">192.168.1.20</span></div>
+          </div>
+        </li>
+        <li>
+          <span class="n" data-i18n="s2_n">On the PS5</span>
+          <h3 data-i18n="s2_h">Put that address in the DNS settings</h3>
+          <p data-i18n="s2_p">Settings, Network, your connection, Advanced Settings, DNS: Manual.</p>
+          <div class="screen" aria-hidden="true">
+            <div class="row"><span class="k">DNS Settings</span><span class="v">Manual</span></div>
+            <div class="row"><span class="k">Primary DNS</span><span class="v hl">192.168.1.20</span></div>
+            <div class="row"><span class="k">Secondary DNS</span><span class="v">1.1.1.1</span></div>
+          </div>
+        </li>
+        <li>
+          <span class="n" data-i18n="s3_n">On the PS5</span>
+          <h3 data-i18n="s3_h">Go live on Twitch, like normal</h3>
+          <p data-i18n="s3_p">The broadcast lands in StreamBridge. Add it to OBS with one click, or send it straight to Kick or YouTube.</p>
+          <div class="screen" aria-hidden="true">
+            <div class="path"><span>Create</span><i>›</i><span>Broadcast</span><i>›</i><span>Twitch</span><i>›</i><span class="go">Go Live</span></div>
+          </div>
+        </li>
+      </ol>
+
+      <figure class="shot">
+        <img src="/assets/img/dashboard-en.webp" data-src-fa="/assets/img/dashboard-fa.webp" width="1600" height="1029" loading="lazy" alt="StreamBridge control panel while the PS5 is live: 1920×1080 at 60 fps, sending to Kick and YouTube" data-i18n-alt="shot_alt">
+      </figure>
+      <p class="caption" data-i18n="shot_cap">The control panel while a PS5 is live, sending to OBS, Kick and YouTube at the same time.</p>
+    </div>
+  </section>
+
+  <!-- ======================= SPECS + FEATURES ======================= -->
+  <section class="band alt" id="features">
+    <div class="wrap">
+      <h2 data-i18n="spec_h">What you get</h2>
+      <dl class="specs">
+        <div><dt data-i18n="sp_pic">Picture</dt><dd><span data-i18n="sp_pic_v">Exactly what the PS5 sends, up to 1080p at 60 fps</span><small data-i18n="sp_pic_s">Not re-encoded, so no quality loss and no load on your computer</small></dd></div>
+        <div><dt data-i18n="sp_delay">Delay</dt><dd><span data-i18n="sp_delay_v">Under 2 seconds to your computer</span><small data-i18n="sp_delay_s">Measured with a real PS5 on a home network</small></dd></div>
+        <div><dt data-i18n="sp_out">Sends to</dt><dd><span data-i18n="sp_out_v">OBS, Streamlabs, Kick, YouTube, Twitch</span><small data-i18n="sp_out_s">or any RTMP or RTMPS server, several at once</small></dd></div>
+        <div><dt data-i18n="sp_need">You need</dt><dd><span data-i18n="sp_need_v">A computer on the same network as the PS5</span><small data-i18n="sp_need_s">A cable is best. No capture card, no Remote Play.</small></dd></div>
+        <div><dt data-i18n="sp_os">Runs on</dt><dd><span data-i18n="sp_os_v">Windows 10 and 11, macOS, Linux</span><small data-i18n="sp_os_s">including Raspberry Pi</small></dd></div>
+        <div><dt data-i18n="sp_cost">Price</dt><dd><span data-i18n="sp_cost_v">Free</span><small data-i18n="sp_cost_s">No account, no ads, nothing to subscribe to</small></dd></div>
+      </dl>
+
+      <div class="feature">
+        <div class="copy">
+          <h3 data-i18n="f1_h">One click into OBS or Streamlabs</h3>
+          <p data-i18n="f1_p">Press “Add to OBS” and the PS5 appears in your current scene, fitted to the screen and placed under your overlays. Keep your webcam, alerts and chat exactly as they are.</p>
+          <ul>
+            <li data-i18n="f1_l1">Works with OBS 28 and newer, and Streamlabs Desktop</li>
+            <li data-i18n="f1_l2">Picture guides with arrows for the one-time setup</li>
+          </ul>
+        </div>
+        <figure class="media" style="margin:0"><img src="/assets/img/obs-en.webp" data-src-fa="/assets/img/obs-fa.webp" width="1600" height="1029" loading="lazy" alt="The OBS and Streamlabs page with Add to OBS and Add to Streamlabs buttons and a picture guide" data-i18n-alt="f1_alt"></figure>
+      </div>
+
+      <div class="feature flip">
+        <div class="copy">
+          <h3 data-i18n="f2_h">Check on it from your phone</h3>
+          <p data-i18n="f2_p">Scan a QR code and the control panel opens on your phone. See whether you're live, switch Kick or YouTube on and off, all from the couch.</p>
+          <ul>
+            <li data-i18n="f2_l1">Off until you turn it on</li>
+            <li data-i18n="f2_l2">Protected by a 6-digit PIN, only on your home Wi-Fi</li>
+          </ul>
+        </div>
+        <figure class="media phone" style="margin:0"><img src="/assets/img/dashboard-en-phone.webp" data-src-fa="/assets/img/dashboard-fa-phone.webp" width="780" height="1688" loading="lazy" alt="StreamBridge control panel on a phone" data-i18n-alt="f2_alt"></figure>
+      </div>
+
+      <div class="feature">
+        <div class="copy">
+          <h3 data-i18n="f3_h">Iran mode, for when Twitch is blocked</h3>
+          <p data-i18n="f3_p">The PS5 has to reach Twitch to sign in and start a broadcast, and you can't run a VPN on it. Connect V2ray on your computer and switch on Iran mode. StreamBridge passes only the PS5's Twitch traffic through it, still encrypted.</p>
+          <ul>
+            <li data-i18n="f3_l1">Nothing to install or change on the PS5 besides DNS</li>
+            <li data-i18n="f3_l2">Finds v2rayN, NekoRay, Hiddify or Clash on its own</li>
+          </ul>
+        </div>
+        <div class="route" aria-hidden="true">
+          <div class="hop"><span class="dot" style="background:var(--air)"></span><b>PS5</b><small data-i18n="r1">only DNS changed</small></div>
+          <div class="down"></div>
+          <div class="hop"><span class="dot" style="background:var(--ready)"></span><b>StreamBridge</b><small data-i18n="r2">Iran mode on</small></div>
+          <div class="down"></div>
+          <div class="hop"><span class="dot" style="background:var(--standby)"></span><b>V2ray</b><small data-i18n="r3">on the same computer</small></div>
+          <div class="down"></div>
+          <div class="hop"><span class="dot" style="background:var(--signal)"></span><b>Twitch</b><small data-i18n="r4">sign-in and Go Live work</small></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= DOWNLOAD ======================= -->
+  <section class="band" id="download">
+    <div class="wrap">
+      <h2 data-i18n="dl_h">Download StreamBridge 1.3</h2>
+      <p class="intro" data-i18n="dl_p">Unzip it and open it. There's nothing to install.</p>
+      <p class="mobile-note" data-i18n="dl_mobile">StreamBridge runs on a computer, not on a phone. Open this page on the computer that's on the same network as your PS5.</p>
+
+      <div class="dl">
+        <article class="os" data-os="windows">
+          <header>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 8.5h18"/></svg>
+            <h3>Windows</h3><span class="tag" data-i18n="mine">For this computer</span>
+          </header>
+          <p class="req" data-i18n="req_win">Windows 10 or 11, 64-bit</p>
+          <a class="btn primary" href="/downloads/StreamBridge-1.3-Windows-x64.zip" download><span data-i18n="dl_zip">Download .zip</span> <span class="size">3.6 MB</span></a>
+          <p class="sum">SHA-256<code>81d926b5b9083c2015e181d34c7d1455957cff7b39d59c1c8a4f45cb26b2d395</code></p>
+          <p class="first" data-i18n="first_win">Windows will probably show a blue “Windows protected your PC” box the first time. <a href="#windows">Here's what to click.</a></p>
+        </article>
+        <article class="os" data-os="mac">
+          <header>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="4" y="5" width="16" height="11" rx="1.5"/><path d="M2 19h20"/></svg>
+            <h3>macOS</h3><span class="tag" data-i18n="mine">For this computer</span>
+          </header>
+          <p class="req" data-i18n="req_mac">Apple Silicon (M1 and newer) and Intel, both in the zip</p>
+          <a class="btn" href="/downloads/StreamBridge-1.3-macOS.zip" download><span data-i18n="dl_zip">Download .zip</span> <span class="size">7.0 MB</span></a>
+          <p class="sum">SHA-256<code>cea91bdb5e1eb3892dce90e572571e531a6cfb5b9bfad755c911129a0a2bd4fe</code></p>
+          <p class="first" data-i18n="first_mac">First time: right-click the file and choose Open. On macOS 15 or newer, go to System Settings, Privacy &amp; Security, and click Open Anyway.</p>
+        </article>
+        <article class="os" data-os="linux">
+          <header>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 10l3 2.5L7 15M12.5 15H17"/></svg>
+            <h3>Linux</h3><span class="tag" data-i18n="mine">For this computer</span>
+          </header>
+          <p class="req" data-i18n="req_linux">x86-64, ARM64 and ARMv7 (Raspberry Pi), all in one archive</p>
+          <a class="btn" href="/downloads/StreamBridge-1.3-Linux.tar.gz" download><span data-i18n="dl_tar">Download .tar.gz</span> <span class="size">10 MB</span></a>
+          <p class="sum">SHA-256<code>ec2f2c5a28787e2fb1c49d87b462390158edcc33bcb7c333840f949965b5ee5a</code></p>
+          <p class="first" data-i18n="first_linux">Run it with <code class="ltr">sudo</code>, because the DNS port (53) needs it.</p>
+        </article>
+      </div>
+      <p class="dl-more" data-i18n="dl_more">Also available: <a href="/downloads/StreamBridge-1.3-source.zip">source code</a> (0.3 MB) and <a href="/downloads/SHA256SUMS.txt">all checksums</a>.</p>
+    </div>
+  </section>
+
+  <!-- ======================= WINDOWS WARNING ======================= -->
+  <section class="band alt" id="windows">
+    <div class="wrap">
+      <h2 data-i18n="win_h">Seeing “Windows protected your PC”?</h2>
+      <p class="intro" data-i18n="win_p">Windows shows this box for new apps it hasn't seen many times yet. It isn't a virus warning. Two clicks and you won't see it again for this file.</p>
+
+      <div class="win">
+        <figure>
+          <svg viewBox="0 0 560 380" dir="ltr" role="img" aria-labelledby="w1t" font-family="'Segoe UI','IBM Plex Sans',system-ui,sans-serif">
+            <title id="w1t">Windows protected your PC dialog, with More info highlighted</title>
+            <rect width="560" height="380" fill="#0B5CAD"/>
+            <rect x="516" y="0" width="44" height="36" fill="#fff"/>
+            <path d="M531 11l14 14M545 11l-14 14" stroke="#222" stroke-width="1.6"/>
+            <text x="28" y="66" font-size="29" font-weight="300" fill="#fff">Windows protected your PC</text>
+            <text x="28" y="106" font-size="15.5" fill="#fff">Microsoft Defender SmartScreen prevented an unrecognized app from</text>
+            <text x="28" y="128" font-size="15.5" fill="#fff">starting. Running this app might put your PC at risk.</text>
+            <text x="28" y="160" font-size="15.5" fill="#fff">More info</text>
+            <path d="M28 164h67" stroke="#fff" stroke-width="1.2"/>
+            <rect x="424" y="316" width="112" height="40" fill="#fff"/>
+            <text x="480" y="341" font-size="15" font-weight="600" fill="#111" text-anchor="middle">Don’t run</text>
+            <rect x="16" y="137" width="92" height="36" rx="7" fill="rgba(255,176,32,.16)" stroke="#FFB020" stroke-width="3"/>
+            <path d="M214 244L128 177" stroke="#FFB020" stroke-width="4" stroke-linecap="round"/>
+            <polygon points="114,166 133,168 121,183" fill="#FFB020"/>
+          </svg>
+          <figcaption><b data-i18n="w1_b">1. Click “More info”</b><span data-i18n="w1_s">It's the small underlined link under the text.</span></figcaption>
+        </figure>
+        <figure>
+          <svg viewBox="0 0 560 380" dir="ltr" role="img" aria-labelledby="w2t" font-family="'Segoe UI','IBM Plex Sans',system-ui,sans-serif">
+            <title id="w2t">The same dialog after More info, with Run anyway highlighted</title>
+            <rect width="560" height="380" fill="#0B5CAD"/>
+            <rect x="516" y="0" width="44" height="36" fill="#fff"/>
+            <path d="M531 11l14 14M545 11l-14 14" stroke="#222" stroke-width="1.6"/>
+            <text x="28" y="66" font-size="29" font-weight="300" fill="#fff">Windows protected your PC</text>
+            <text x="28" y="106" font-size="15.5" fill="#fff">Microsoft Defender SmartScreen prevented an unrecognized app from</text>
+            <text x="28" y="128" font-size="15.5" fill="#fff">starting. Running this app might put your PC at risk.</text>
+            <text x="28" y="172" font-size="15.5" fill="#fff">App:</text>
+            <text x="118" y="172" font-size="15.5" fill="#fff">StreamBridge.exe</text>
+            <text x="28" y="198" font-size="15.5" fill="#fff">Publisher:</text>
+            <text x="118" y="198" font-size="15.5" fill="#fff">Unknown publisher</text>
+            <rect x="300" y="316" width="112" height="40" fill="#fff"/>
+            <text x="356" y="341" font-size="15" font-weight="600" fill="#111" text-anchor="middle">Run anyway</text>
+            <rect x="424" y="316" width="112" height="40" fill="#fff"/>
+            <text x="480" y="341" font-size="15" font-weight="600" fill="#111" text-anchor="middle">Don’t run</text>
+            <rect x="292" y="308" width="128" height="56" rx="9" fill="rgba(255,176,32,.12)" stroke="#FFB020" stroke-width="3"/>
+            <path d="M150 252L274 318" stroke="#FFB020" stroke-width="4" stroke-linecap="round"/>
+            <polygon points="289,326 271,327 280,311" fill="#FFB020"/>
+          </svg>
+          <figcaption><b data-i18n="w2_b">2. Click “Run anyway”</b><span data-i18n="w2_s">StreamBridge starts and opens its control panel in your browser.</span></figcaption>
+        </figure>
+      </div>
+
+      <div class="why">
+        <div>
+          <h3 data-i18n="why1_h">Then allow it through the firewall</h3>
+          <p data-i18n="why1_p">Windows Firewall asks once whether StreamBridge may use the network. Click Allow, with Private networks ticked. Without this, the PS5 can't reach your computer.</p>
+        </div>
+        <div>
+          <h3 data-i18n="why2_h">Want to check the file is really ours?</h3>
+          <p data-i18n="why2_p">Open PowerShell in your Downloads folder and run <code>Get-FileHash StreamBridge-1.3-Windows-x64.zip</code>. The result should match the SHA-256 shown under the Windows download.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= FAQ ======================= -->
+  <section class="band" id="faq">
+    <div class="wrap">
+      <h2 data-i18n="faq_h">Questions</h2>
+      <div class="faq">
+        <details><summary data-i18n="q1">Do I really not need a capture card?</summary><p data-i18n="a1">Really. The PS5 already encodes its broadcast for Twitch. StreamBridge just catches it on your computer instead of letting it go to Twitch, so you get the PS5's own picture without a cable or capture card.</p></details>
+        <details><summary data-i18n="q2">Do I need a Twitch account?</summary><p data-i18n="a2">Yes. The PS5 only shows Go Live once a Twitch account is linked (Settings, Users and Accounts, Linked Services). Nothing is sent to Twitch unless you switch on “Also send to my Twitch” in StreamBridge.</p></details>
+        <details><summary data-i18n="q3">How much delay is there?</summary><p data-i18n="a3">Under two seconds from the PS5 to your computer. Kick, YouTube or Twitch add their own delay on top, the same as with any stream.</p></details>
+        <details><summary data-i18n="q4">Will it slow down my internet or other devices?</summary><p data-i18n="a4">No. StreamBridge only answers the PS5's question about where Twitch's video server is. Every other lookup is passed to normal DNS (1.1.1.1), and only the PS5 uses StreamBridge as its DNS.</p></details>
+        <details><summary data-i18n="q5">Does the computer have to stay on?</summary><p data-i18n="a5">Yes, while you stream. When you stop using StreamBridge for good, set the PS5's DNS back to Automatic.</p></details>
+        <details><summary data-i18n="q6">Where is my stream key kept?</summary><p data-i18n="a6">Only on your computer, in StreamBridge's settings file. It isn't sent anywhere except to the platform it belongs to.</p></details>
+        <details><summary data-i18n="q7">Does it work in Iran?</summary><p data-i18n="a7">Yes. Turn on Iran mode in Settings and keep V2ray connected on the same computer. The PS5 only needs its DNS pointed at your computer, as usual.</p></details>
+        <details><summary data-i18n="q8">What about PS4 or Xbox?</summary><p data-i18n="a8">StreamBridge is built and tested for the PS5. Other consoles that stream to Twitch might work too, but we haven't tested them.</p></details>
+        <details><summary data-i18n="q9">Why does Windows warn me about it?</summary><p data-i18n="a9">Windows warns about any new app that hasn't been downloaded many times yet. <a href="#windows">See the two clicks that get past it.</a></p></details>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div><span data-i18n="foot_by">StreamBridge is made by</span> <a href="https://voxocast.com">VoxoCast</a>. <span data-i18n="foot_ver">Version 1.3, November 2026.</span></div>
+    <nav aria-label="Footer">
+      <a href="#download" data-i18n="nav_dl">Download</a>
+      <a href="/privacy.html" data-i18n="privacy">Privacy</a>
+      <a href="/downloads/StreamBridge-1.3-source.zip" data-i18n="source">Source code</a>
+    </nav>
+    <p class="legal" data-i18n="legal">PlayStation and PS5 are trademarks of Sony Interactive Entertainment. StreamBridge isn't affiliated with Sony, Twitch, Kick, YouTube, OBS or Streamlabs.</p>
+  </div>
+</footer>
+
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

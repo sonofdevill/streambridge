@@ -1,0 +1,31 @@
+# StreamBridge website: strem.voxocast.com
+# Put the contents of the "site" folder in /srv/strem (or change "root" below).
+strem.voxocast.com {
+	root * /srv/strem
+	encode zstd gzip
+	file_server
+
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		X-Frame-Options "DENY"
+		Permissions-Policy "camera=(), microphone=(), geolocation=()"
+		Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'"
+		-Server
+	}
+
+	@static path /assets/* /favicon.ico
+	header @static Cache-Control "public, max-age=604800"
+
+	# Short cache so a new release shows up quickly
+	@downloads path /downloads/*
+	header @downloads Cache-Control "public, max-age=600"
+
+	@archives path *.zip *.tar.gz
+	header @archives Content-Disposition "attachment"
+
+	handle_errors {
+		redir * / 302
+	}
+}

@@ -1,0 +1,15 @@
+# build output
+dist/
+/streambridge
+*.exe
+StreamBridge-macOS-*
+streambridge-linux-*
+
+# release files live in GitHub Releases, not in git
+site/downloads/*.zip
+site/downloads/*.tar.gz
+
+# local config / logs
+streambridge-config.json
+*.log
+.DS_Store

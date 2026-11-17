@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>StreamBridge</title>
+<link rel="icon" href="icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+
+<aside class="side">
+  <div class="brand">
+    <svg width="34" height="34" viewBox="0 0 40 40" aria-hidden="true"><rect x="1" y="1" width="38" height="38" rx="11" fill="#1D2639" stroke="#36425E"/><path d="M9 25 Q20 9 31 25" fill="none" stroke="#5B8CFF" stroke-width="2.8" stroke-linecap="round"/><circle cx="9" cy="26" r="3.4" fill="#35D07F"/><circle cx="31" cy="26" r="3.4" fill="#35D07F"/></svg>
+    <b>StreamBridge</b>
+  </div>
+  <nav class="nav" id="nav"></nav>
+  <div class="side-ip">
+    <div class="k" data-i18n="side_ip"></div>
+    <div class="v"><span class="ip" data-ip>—</span><button class="btn small" data-copy="ip" data-i18n="copy"></button></div>
+  </div>
+  <div class="side-foot">
+    <div class="seg" role="group" aria-label="Language"><button data-lang="en">EN</button><button data-lang="fa">فا</button></div>
+    <button class="btn small ghost danger" onclick="stopApp()" data-i18n="stop"></button>
+    <span class="ver ltr" id="ver"></span>
+  </div>
+</aside>
+
+<main class="main">
+  <header class="top">
+    <h1 id="page-title"></h1>
+    <span class="phone-badge" id="phone-badge" hidden data-i18n="on_phone"></span>
+    <span class="tally-pill" id="tally"><i></i><span id="tally-t"></span></span>
+  </header>
+  <div id="alerts"></div>
+
+  <!-- Dashboard -->
+  <section class="page" id="page-dashboard">
+    <div class="mobile-ip">
+      <div><div class="note" style="margin:0" data-i18n="side_ip"></div><span class="ip" data-ip>—</span></div>
+      <div class="row"><button class="btn small" data-copy="ip" data-i18n="copy"></button><div class="seg"><button data-lang="en">EN</button><button data-lang="fa">فا</button></div></div>
+    </div>
+    <div class="path-wrap">
+      <div class="path">
+        <div class="node" id="n-ps5">
+          <div class="node-h"><i class="tl"></i><b>PS5</b><span class="ico" data-icon="pad"></span></div>
+          <div class="node-sub" id="n-ps5-sub"></div>
+          <div class="chips" id="n-ps5-chips" hidden></div>
+        </div>
+        <div class="wire" id="w1"></div>
+        <div class="node" id="n-pc">
+          <div class="node-h"><i class="tl"></i><b data-i18n="node_pc"></b><span class="ico" data-icon="pc"></span></div>
+          <div class="node-sub" id="n-pc-sub"></div>
+          <div class="chips" id="n-pc-chips"></div>
+        </div>
+        <div class="wire" id="w2"></div>
+        <div class="outs" id="outs"></div>
+      </div>
+      <div class="next" id="next" hidden></div>
+    </div>
+    <div class="dash-grid">
+      <div>
+        <div class="row"><h2 data-i18n="pv_title"></h2><button class="btn small" id="pv-btn" style="margin-inline-start:auto" onclick="togglePreview()" data-i18n="pv_show"></button></div>
+        <div class="pv-frame"><video id="pv" muted controls playsinline></video><div class="pv-empty" id="pv-note"></div></div>
+      </div>
+      <div>
+        <h2 data-i18n="q_title"></h2>
+        <div class="qlist" id="qlist"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Setup -->
+  <section class="page" id="page-setup" hidden>
+    <div class="block">
+      <div class="block-h"><span class="step-n" id="sn1">1</span><h2 data-i18n="s1_title"></h2><span class="check" id="ck1"></span></div>
+      <p class="lead" data-i18n="s1_lead"></p>
+      <div class="ipcard">
+        <div><div class="k" data-i18n="primary"></div><div class="v" data-ip>—</div></div>
+        <div><div class="k" data-i18n="secondary"></div><div class="v">1.1.1.1</div></div>
+        <div style="align-self:center;margin-inline-start:auto"><button class="btn small" data-copy="ip" data-i18n="copy_ip"></button></div>
+      </div>
+      <div id="ip-picker" hidden>
+        <label class="f" data-i18n="pick_ip"></label>
+        <select id="ip-select" onchange="setPreferredIP(this.value)"></select>
+      </div>
+      <div style="margin-top:18px" class="guide" data-guide="ps5dns"></div>
+      <p class="note" data-i18n="s1_note"></p>
+    </div>
+    <div class="block">
+      <div class="block-h"><span class="step-n" id="sn2">2</span><h2 data-i18n="s2_title"></h2><span class="check" id="ck2"></span></div>
+      <p class="lead" data-i18n="s2_lead"></p>
+      <div style="margin-top:14px" class="guide" data-guide="golive"></div>
+    </div>
+    <div class="block">
+      <div class="block-h"><span class="step-n" id="sn3">3</span><h2 data-i18n="s3_title"></h2></div>
+      <p class="lead" data-i18n="s3_lead"></p>
+      <div class="imp-btns"><button class="btn primary" data-goto="obs" data-i18n="s3_obs"></button><button class="btn" data-goto="platforms" data-i18n="s3_direct"></button></div>
+    </div>
+  </section>
+
+  <!-- OBS & Streamlabs -->
+  <section class="page" id="page-obs" hidden>
+    <div class="block">
+      <h2 data-i18n="imp_title"></h2>
+      <p class="lead" data-i18n="imp_desc"></p>
+      <div class="imp-btns">
+        <button class="btn primary" onclick="importTo('obs')" data-i18n="imp_obs"></button>
+        <button class="btn" onclick="importTo('streamlabs')" data-i18n="imp_sl"></button>
+      </div>
+      <div class="imp-box" id="imp-box" hidden>
+        <div class="note" style="margin:0" id="imp-help"></div>
+        <div class="row" style="margin-top:8px">
+          <input type="password" class="ltr" id="imp-secret" autocomplete="off" spellcheck="false">
+          <button class="btn primary" onclick="importTo(impTarget, true)" data-i18n="imp_connect"></button>
+        </div>
+      </div>
+      <div class="imp-msg" id="imp-msg"></div>
+    </div>
+    <div class="block">
+      <div class="gtabs" role="tablist" id="obs-tabs">
+        <button data-g="obsws" data-i18n="gt_obsws"></button>
+        <button data-g="obsmanual" data-i18n="gt_manual"></button>
+        <button data-g="slremote" data-i18n="gt_sl"></button>
+      </div>
+      <div class="guide" id="obs-guide"></div>
+      <div class="urlbox" id="manual-url" hidden><code data-obsurl>rtmp://127.0.0.1:1935/live/ps5</code><button class="btn small" data-copy="obs" data-i18n="copy"></button></div>
+    </div>
+    <div class="block">
+      <h2 data-i18n="tips_title"></h2>
+      <p class="note" data-i18n="obs_tip"></p>
+      <p class="note"><span data-i18n="obs_lan"></span> <code class="ltr" id="lan-url"></code></p>
+    </div>
+  </section>
+
+  <!-- Platforms -->
+  <section class="page" id="page-platforms" hidden>
+    <div class="block">
+      <p class="lead" data-i18n="direct_desc"></p>
+      <div class="toggle-row" style="margin-top:10px">
+        <label class="switch"><input type="checkbox" id="fwd-twitch" onchange="setForward(this.checked)"><span></span></label>
+        <div style="flex:1"><div class="t" data-i18n="fwd_t"></div><div class="s" data-i18n="fwd_s"></div><div id="fwd-state"></div></div>
+      </div>
+      <div id="dest-list"></div>
+    </div>
+    <div class="block">
+      <h2 data-i18n="add_title"></h2>
+      <div class="formrow" style="margin-top:4px">
+        <div><label class="f" data-i18n="f_platform"></label>
+          <select id="f-platform" onchange="onPlatformChange()">
+            <option value="kick">Kick</option><option value="youtube">YouTube</option><option value="twitch">Twitch</option><option value="custom" data-i18n="custom"></option>
+          </select></div>
+        <div><label class="f" data-i18n="f_url"></label><input type="text" class="ltr" id="f-url" autocomplete="off" spellcheck="false"></div>
+      </div>
+      <label class="f" data-i18n="f_key"></label>
+      <input type="password" class="ltr" id="f-key" autocomplete="off" spellcheck="false">
+      <div class="help" id="f-help"></div>
+      <div class="formerr" id="f-err"></div>
+      <button class="btn primary" onclick="addDest()" data-i18n="f_add"></button>
+    </div>
+  </section>
+
+  <!-- Settings -->
+  <section class="page" id="page-settings" hidden>
+    <div class="block" id="set-local">
+      <div class="toggle-row" id="auto-row" hidden>
+        <label class="switch"><input type="checkbox" id="auto-toggle" onchange="setAutostart(this.checked)"><span></span></label>
+        <div style="flex:1"><div class="t" data-i18n="auto_t"></div><div class="s" data-i18n="auto_s"></div></div>
+      </div>
+      <div class="toggle-row">
+        <label class="switch"><input type="checkbox" id="remote-toggle" onchange="setRemote(this.checked)"><span></span></label>
+        <div style="flex:1">
+          <div class="t" data-i18n="rem_t"></div><div class="s" data-i18n="rem_s"></div>
+          <div id="remote-box" hidden>
+            <div class="remote-grid">
+              <img id="qr" alt="QR" width="176" height="176">
+              <div>
+                <div class="s" data-i18n="rem_scan"></div>
+                <div class="s" style="margin-top:10px" data-i18n="rem_or"></div>
+                <div class="mono ltr" id="rem-url" style="font-size:15px;margin:2px 0"></div>
+                <div class="s" style="margin-top:8px" data-i18n="rem_pin"></div>
+                <div class="mono" id="rem-pin" style="font-size:26px;font-weight:600;letter-spacing:3px"></div>
+                <button class="btn small" style="margin-top:8px" onclick="resetRemote()" data-i18n="rem_reset"></button>
+              </div>
+            </div>
+            <div class="s" style="margin-top:8px" data-i18n="rem_note"></div>
+          </div>
+          <div class="err-line" id="remote-err"></div>
+        </div>
+      </div>
+    </div>
+    <div class="block" id="iran-block">
+      <div class="toggle-row">
+        <label class="switch"><input type="checkbox" id="tun-toggle" onchange="setTunnel({enabled: this.checked})"><span></span></label>
+        <div style="flex:1;min-width:0">
+          <div class="t" data-i18n="tun_t"></div><div class="s" data-i18n="tun_s"></div>
+          <div id="tun-box" hidden>
+            <label class="f" data-i18n="tun_proxy"></label>
+            <div class="row" style="flex-wrap:wrap">
+              <input type="text" class="ltr" id="tun-proxy" placeholder="127.0.0.1:10808" style="max-width:240px" autocomplete="off" spellcheck="false">
+              <button class="btn small" onclick="saveProxy()" data-i18n="tun_save"></button>
+              <button class="btn small" onclick="detectProxy()" data-i18n="tun_detect"></button>
+              <button class="btn small primary" onclick="testTunnelNow()" data-i18n="tun_test"></button>
+            </div>
+            <div class="imp-msg" id="tun-msg"></div>
+            <div class="tun-status" id="tun-status"></div>
+            <div class="toggle-row" style="border:0;padding:10px 0 0">
+              <label class="switch"><input type="checkbox" id="tun-relays" onchange="setTunnel({skipRelays: !this.checked})"><span></span></label>
+              <div><div class="t" data-i18n="tun_relays_t"></div><div class="s" data-i18n="tun_relays_s"></div></div>
+            </div>
+            <p class="note" data-i18n="tun_link_note"></p>
+            <details class="manual" style="margin-top:10px"><summary data-i18n="tun_adv"></summary>
+              <label class="f" data-i18n="tun_extra"></label>
+              <textarea id="tun-extra" class="ltr" rows="3" spellcheck="false"></textarea>
+              <div style="margin-top:6px"><button class="btn small" onclick="saveExtra()" data-i18n="tun_save"></button></div>
+            </details>
+          </div>
+          <div class="err-line" id="tun-err"></div>
+        </div>
+      </div>
+    </div>
+    <div class="block" id="set-phone-note" hidden><p class="lead" data-i18n="set_phone_note"></p></div>
+  </section>
+
+  <!-- Help -->
+  <section class="page" id="page-help" hidden>
+    <div class="block qa">
+      <h3 data-i18n="q1"></h3><p data-i18n="a1"></p>
+      <div id="fw-wrap" hidden style="margin-top:10px"><button class="btn" onclick="fixFirewall()" data-i18n="fw_btn"></button> <span class="note" id="fw-msg"></span></div>
+      <h3 data-i18n="q2"></h3><p data-i18n="a2"></p>
+      <h3 data-i18n="q3"></h3><p data-i18n="a3"></p>
+      <h3 data-i18n="q4"></h3><p data-i18n="a4"></p>
+      <h3 data-i18n="q5"></h3><p data-i18n="a5"></p>
+      <h3 data-i18n="q6"></h3><p data-i18n="a6"></p>
+      <h3 data-i18n="q7"></h3><p data-i18n="a7"></p>
+    </div>
+    <div class="block">
+      <h2 data-i18n="devices_title"></h2>
+      <div class="tablewrap"><table><thead><tr><th data-i18n="col_device"></th><th data-i18n="col_ip"></th><th data-i18n="col_seen"></th><th data-i18n="col_q"></th></tr></thead><tbody id="dev-body"></tbody></table></div>
+    </div>
+    <div class="block">
+      <h2 data-i18n="log_title"></h2>
+      <div class="tablewrap"><table><thead><tr><th data-i18n="col_time"></th><th data-i18n="col_ip"></th><th data-i18n="col_name"></th><th></th></tr></thead><tbody id="log-body"></tbody></table></div>
+    </div>
+  </section>
+</main>
+</div>
+
+<nav class="tabbar" id="tabbar"></nav>
+<div class="overlay" id="overlay"><div id="overlay-msg"></div></div>
+
+<script src="i18n.js"></script>
+<script src="guides.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

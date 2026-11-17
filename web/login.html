@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>StreamBridge</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@600&family=IBM+Plex+Sans+Arabic:wght@400;600&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0F1522;--card:#161E2E;--card2:#1D2639;--line:#36425E;--text:#E7ECF5;--muted:#93A0B8;--red:#FF4B4B;--accent:#5B8CFF;--font:"IBM Plex Sans",system-ui,sans-serif}
+html[lang="fa"]{--font:"IBM Plex Sans Arabic","IBM Plex Sans",Tahoma,system-ui,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:grid;place-items:center;background:var(--bg);color:var(--text);font-family:var(--font);padding:20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px 22px;width:100%;max-width:360px;text-align:center}
+h1{font-size:20px;margin:12px 0 4px;font-weight:600}
+p{color:var(--muted);font-size:14px;margin:0 0 18px;line-height:1.6}
+input{width:100%;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:12px;padding:14px;font-size:28px;letter-spacing:10px;text-align:center;font-family:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;direction:ltr}
+button{width:100%;margin-top:14px;background:var(--accent);color:#fff;border:0;border-radius:12px;padding:13px;font:inherit;font-size:16px;cursor:pointer}
+.err{color:var(--red);font-size:14px;min-height:22px;margin-top:10px}
+.lang{margin-top:16px;font-size:13px}
+.lang a{color:var(--muted);margin:0 6px;cursor:pointer;text-decoration:none}
+</style>
+</head>
+<body>
+<div class="card">
+  <svg width="44" height="44" viewBox="0 0 40 40" aria-hidden="true"><rect x="1" y="1" width="38" height="38" rx="11" fill="#1D2639" stroke="#36425E"/><path d="M9 25 Q20 9 31 25" fill="none" stroke="#5B8CFF" stroke-width="2.6" stroke-linecap="round"/><circle cx="9" cy="26" r="3.2" fill="#35D07F"/><circle cx="31" cy="26" r="3.2" fill="#35D07F"/></svg>
+  <h1>StreamBridge</h1>
+  <p id="msg"></p>
+  <input id="pin" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="one-time-code" autofocus>
+  <button id="go" onclick="login()"></button>
+  <div class="err" id="err"></div>
+  <div class="lang"><a onclick="setLang('en')">English</a>·<a onclick="setLang('fa')">فارسی</a></div>
+</div>
+<script>
+const T = {
+  en: {msg: "Enter the 6-digit PIN shown on the computer (StreamBridge → This computer → Control from your phone).", go: "Open control panel", wrong: "Wrong PIN. Try again.", locked: "Too many tries. Wait 5 minutes.", empty: "Enter the PIN."},
+  fa: {msg: "رمز ۶ رقمی‌ای که روی کامپیوتر نوشته رو وارد کن (StreamBridge ← این کامپیوتر ← کنترل از گوشی).", go: "باز کردن پنل کنترل", wrong: "رمز اشتباهه. دوباره امتحان کن.", locked: "تلاش زیاد بود. ۵ دقیقه صبر کن.", empty: "رمز رو وارد کن."}
+};
+let lang = (localStorage.getItem("sb_lang") || ((navigator.language || "").startsWith("fa") ? "fa" : "en"));
+function setLang(l) {
+  lang = l; try { localStorage.setItem("sb_lang", l); } catch (e) {}
+  document.documentElement.lang = l; document.documentElement.dir = l === "fa" ? "rtl" : "ltr";
+  document.getElementById("msg").textContent = T[l].msg; document.getElementById("go").textContent = T[l].go;
+}
+async function login() {
+  const pin = document.getElementById("pin").value.replace(/\D/g, ""), err = document.getElementById("err");
+  if (!pin) { err.textContent = T[lang].empty; return; }
+  const r = await (await fetch("/api/login", {method: "POST", headers: {"Content-Type": "application/json", "X-StreamBridge": "1"}, body: JSON.stringify({pin})})).json();
+  if (r.ok) { location.href = "/"; return; }
+  err.textContent = r.error === "locked" ? T[lang].locked : T[lang].wrong;
+  document.getElementById("pin").value = "";
+}
+document.getElementById("pin").addEventListener("keydown", e => { if (e.key === "Enter") login(); });
+setLang(lang);
+</script>
+</body>
+</html>

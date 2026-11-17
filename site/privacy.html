@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy: StreamBridge</title>
+<meta name="description" content="StreamBridge doesn't collect personal data. Settings and stream keys stay on your computer.">
+<link rel="canonical" href="https://strem.voxocast.com/privacy.html">
+<meta name="theme-color" content="#0F1522">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/icon.png" type="image/png">
+<link rel="stylesheet" href="/assets/site.css">
+<script>
+(function(){var h=document.documentElement,l="en";try{var q=new URLSearchParams(location.search).get("lang");l=q||localStorage.getItem("sb-lang")||((navigator.language||"").toLowerCase().indexOf("fa")===0?"fa":"en")}catch(e){}if(l==="fa"){h.lang="fa";h.dir="rtl";h.classList.add("pending")}})();
+</script>
+</head>
+<body>
+<header class="top scrolled" id="top">
+  <div class="wrap">
+    <a class="brand" href="/"><img src="/assets/icon.png" alt="" width="30" height="30">StreamBridge</a>
+    <nav class="links" aria-label="Sections"><a href="/" data-i18n="back">Back to the main page</a></nav>
+    <div class="seg" role="group" aria-label="Language">
+      <button type="button" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-lang="fa" class="fa" aria-pressed="false">فا</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <article class="doc">
+    <h1 data-i18n="p_h">Privacy</h1>
+    <p class="date" data-i18n="p_date">Last updated: November 16, 2026</p>
+    <p data-i18n="p_intro">StreamBridge runs on your own computer. It doesn't collect, send or sell any personal information. There are no accounts, no analytics and no ads.</p>
+
+    <h2 data-i18n="p_h1">What's stored on your computer</h2>
+    <p data-i18n="p_t1">Your settings, including any stream keys you enter, are saved only in a file on your computer:</p>
+    <ul>
+      <li>Windows: <code>%AppData%\StreamBridge\config.json</code></li>
+      <li>macOS: <code>~/Library/Application Support/StreamBridge/config.json</code></li>
+      <li>Linux: <code>~/.config/StreamBridge/config.json</code></li>
+    </ul>
+
+    <h2 data-i18n="p_h2">What the app connects to</h2>
+    <ul>
+      <li data-i18n="p_l1">The platforms you choose (such as Kick, YouTube or Twitch), to send your stream.</li>
+      <li data-i18n="p_l2">Public DNS servers (1.1.1.1 and 8.8.8.8), to answer the PS5's other lookups.</li>
+      <li data-i18n="p_l3">In Iran mode, your own proxy (for example V2ray) on the same computer.</li>
+      <li data-i18n="p_l4">OBS or Streamlabs on the same computer, only when you press an Add button.</li>
+    </ul>
+    <p data-i18n="p_t2">The app doesn't check for updates or send crash reports anywhere.</p>
+
+    <h2 data-i18n="p_h3">Phone control</h2>
+    <p data-i18n="p_t3">Phone control is off until you turn it on. When it's on, it's only reachable on your home network and needs the 6-digit PIN or the QR code.</p>
+
+    <h2 data-i18n="p_h4">This website</h2>
+    <p data-i18n="p_t4">This site has no cookies, analytics or trackers. It only remembers the language you pick, in your own browser. Like any website, the server may keep IP addresses and request times for a short while for security.</p>
+
+    <h2 data-i18n="p_h5">Changes</h2>
+    <p data-i18n="p_t5">If this page changes, the new version will be posted here with a new date.</p>
+  </article>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div><span data-i18n="foot_by">StreamBridge is made by</span> <a href="https://voxocast.com">VoxoCast</a>.</div>
+    <nav aria-label="Footer"><a href="/" data-i18n="back">Back to the main page</a></nav>
+  </div>
+</footer>
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

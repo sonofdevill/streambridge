@@ -1,0 +1,4 @@
+ec2f2c5a28787e2fb1c49d87b462390158edcc33bcb7c333840f949965b5ee5a  StreamBridge-1.3-Linux.tar.gz
+81d926b5b9083c2015e181d34c7d1455957cff7b39d59c1c8a4f45cb26b2d395  StreamBridge-1.3-Windows-x64.zip
+cea91bdb5e1eb3892dce90e572571e531a6cfb5b9bfad755c911129a0a2bd4fe  StreamBridge-1.3-macOS.zip
+84c40d2b6e8d635bc008b02fa88c72abf95fc977984b3c99d5844f425655a02a  StreamBridge-1.3-source.zip
