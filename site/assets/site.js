@@ -7,6 +7,7 @@
     title: "StreamBridge: stream your PS5 to OBS, Kick and YouTube without a capture card",
     desc: "Free app that catches your PS5's Twitch broadcast on your computer and sends it to OBS, Streamlabs, Kick, YouTube or any RTMP server. No capture card, under 2 seconds of delay.",
     p_title: "Privacy: StreamBridge",
+    g_title: "Support StreamBridge",
     dl_win: "Download for Windows", dl_mac: "Download for macOS", dl_linux: "Download for Linux", dl_see: "See downloads"
   };
 
@@ -14,6 +15,7 @@
     title: "StreamBridge: استریم PS5 روی OBS، کیک و یوتیوب بدون کپچر کارت",
     desc: "برنامهٔ رایگانی که پخش توییچِ PS5 رو روی کامپیوترت می‌گیره و به OBS، Streamlabs، کیک، یوتیوب یا هر سرور RTMP می‌فرسته. بدون کپچر کارت، با تأخیر کمتر از ۲ ثانیه.",
     p_title: "حریم خصوصی: StreamBridge",
+    g_title: "حمایت از StreamBridge",
     skip: "رفتن به محتوا",
     nav_how: "چطور کار می‌کنه", nav_dl: "دانلود", nav_win: "هشدار ویندوز", nav_faq: "سؤال‌ها",
     h1: "PS5 رو بدون کپچر کارت روی OBS، کیک و یوتیوب استریم کن.",
@@ -90,6 +92,15 @@
     q9: "چرا ویندوز برای این برنامه هشدار می‌ده؟",
     a9: "ویندوز برای هر برنامهٔ تازه‌ای که هنوز زیاد دانلود نشده هشدار می‌ده. <a href=\"#windows\">دو کلیکی که ازش ردت می‌کنه رو ببین.</a>",
     foot_by: "StreamBridge ساختهٔ", foot_ver: "نسخهٔ ۱٫۳، نوامبر ۲۰۲۶.",
+    don_h: "حمایت از StreamBridge",
+    don_p: "StreamBridge رایگانه و رایگان می‌مونه. اگه باعث شد کپچر کارت نخری و دوست داری کمک کنی، می‌تونی حمایت کنی. کاملاً اختیاریه.",
+    don_warn: "فقط روی همون شبکه‌ای که نوشته شده بفرست؛ ارزی که روی شبکهٔ اشتباه فرستاده بشه برنمی‌گرده.",
+    don_copy: "کپی", don_copied: "کپی شد", don_qr_show: "نمایش QR", don_qr_hide: "بستن QR", nav_support: "حمایت", nav_donate: "حمایت مالی",
+    g_eyebrow: "اختیاری", g_evm: "یک آدرس برای همهٔ این شبکه‌ها:",
+    g_s1: "شبکه‌ای رو انتخاب کن که کیف پولت باهاش می‌فرسته.",
+    g_s2: "آدرس رو کپی کن، یا QR کدش رو اسکن کن.",
+    g_s3: "قبل از فرستادن، چند کاراکتر اول و آخر آدرس رو با همین صفحه مقایسه کن.",
+    g_thanks: "ممنون که از StreamBridge استفاده می‌کنی.",
     privacy: "حریم خصوصی", source: "سورس کد", back: "برگشت به صفحهٔ اصلی",
     legal: "PlayStation و PS5 علامت تجاری Sony Interactive Entertainment هستن. StreamBridge وابسته به سونی، توییچ، کیک، یوتیوب، OBS یا Streamlabs نیست.",
     /* privacy page */
@@ -178,10 +189,11 @@
       var want = fa ? img.dataset.srcFa : img.dataset.srcEn;
       if (img.getAttribute("src") !== want) img.setAttribute("src", want);
     });
-    var tkey = isPrivacy() ? "p_title" : "title";
+    var isGive = !!document.querySelector(".give");
+    var tkey = isPrivacy() ? "p_title" : isGive ? "g_title" : "title";
     document.title = (fa ? FA : EN)[tkey];
     var md = document.querySelector('meta[name="description"]');
-    if (md && !isPrivacy()) md.setAttribute("content", fa ? FA.desc : EN.desc);
+    if (md && !isPrivacy() && !isGive) md.setAttribute("content", fa ? FA.desc : EN.desc);
     q(".seg button").forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.lang === lang)); });
     root.classList.remove("pending");
   }
@@ -204,8 +216,41 @@
     io.observe(chain);
   }
 
+  /* ---------- optional donations: copy address, show/hide QR ---------- */
+  function setupDonate() {
+    var live = document.querySelector(".don-live");
+    q(".don-row").forEach(function (row) {
+      var code = row.querySelector(".don-addr");
+      var copy = row.querySelector(".don-copy");
+      var qr = row.querySelector(".don-qr");
+      var box = row.querySelector(".don-qrbox");
+      var timer;
+      copy.addEventListener("click", function () {
+        var addr = code.textContent.trim();
+        var done = function () {
+          copy.classList.add("done");
+          if (live) live.textContent = root.lang === "fa" ? FA.don_copied : "Copied";
+          clearTimeout(timer);
+          timer = setTimeout(function () { copy.classList.remove("done"); if (live) live.textContent = ""; }, 1800);
+        };
+        var select = function () {
+          var r = document.createRange(); r.selectNodeContents(code);
+          var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(addr).then(done, select);
+        else select();
+      });
+      qr.addEventListener("click", function () {
+        var open = box.hidden;
+        box.hidden = !open;
+        qr.setAttribute("aria-expanded", String(open));
+      });
+    });
+  }
+
   function init() {
     setupDownload();
+    setupDonate();
     apply(root.lang === "fa" ? "fa" : "en");
     q(".seg button").forEach(function (b) { b.addEventListener("click", function () { setLang(b.dataset.lang); }); });
     setupChain();
